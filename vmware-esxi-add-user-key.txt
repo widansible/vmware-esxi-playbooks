@@ -1,18 +1,17 @@
-Add User
+Add User at vmware esxi
 
 1. Login to your vSphere Web Client ESXI Host
 https://10.11.8.77
 2. Create the User
-Click on Host then Manage click on Security & Users then Users click on Add User , Add the name and password , and Click Add
+Click on Host then Manage click on Security & Users then Users click on Add User , Add the name (ansible), description (Administrator) and password, enable shell access and Click Add
 3. Assign the Role
-Now click on Host again then Click on Actions Go to Permissions , select the newly created User from the drop down Menu then select the required Role , Finally click on Add User.
-You are done
+Now click on Host again then Click on Actions Go to Permissions , Click Add user, select the newly created User (ansible) from the drop down Menu then select the required Role (Administrator), Finally click on Add User.
 
 ref:
 googling: vmware esxi create user
 https://community.spiceworks.com/t/add-an-esxi-user-and-assign-a-role-vsphere-web-client/1013595
 
-Add Key
+Add Ssh Public Key to vmware esxi
 
 #at ansible server
 cat ~/.ssh/id_rsa.pub #copy it
