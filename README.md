@@ -14,15 +14,19 @@ You can `cd` into any of the included directories and run ansible-playbook on it
 
 ## Commands
 
+```
 git clone https://github.com/widansible/vmware-esxi-playbooks
 cd VMWARE-ESXI-PATCH-PLAYBOOK
 ansible-playbook -i 10.11.8.87, vmware-esxi-8-patch.yml --ask-pass
+```
 
 note:
 - change or edit PATCH_FILE_PATH located at vars.yml to the path of your current patch file
 - change or edit user with your desired user
 - if you already put ssh public key to vmware esxi server, then you can remove the --ask-pass option 
+```
 ansible-playbook -i 10.11.8.87, vmware-esxi-8-patch.yml
+```
 
 ## License
 
