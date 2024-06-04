@@ -1,0 +1,29 @@
+---
+- hosts: all
+  vars_files:
+    - vars.yml
+
+  tasks:
+    - name: Get start time
+      block:
+        - setup:
+            filter: ansible_date_time
+          register: start_time
+        - set_fact:
+            start_time: "{{ lookup('pipe','date \"+%T %Z %F\"') }}"
+      delegate_to: localhost
+      tags: always
+
+    - name: Patch it
+      shell: esxcli software profile update -d /vmfs/volumes/data0/patch/VMware-ESXi-8.0U2c-23825572-depot.zip --profile=ESXi-8.0U2c-23825572-standard --no-hardware-warning
+
+    - name: Get end time
+      block:
+        - setup:
+            filter: ansible_date_time
+          register: end_time
+        - set_fact:
+            end_time: "{{ lookup('pipe','date \"+%T %Z %F\"') }}"
+      delegate_to: localhost
+      tags: always
+
