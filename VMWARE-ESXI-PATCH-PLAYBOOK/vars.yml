@@ -1,3 +1,5 @@
-ansible_user: root
+ansible_user: ansible
 ansible_port: 22
 host_key_checking: false
+PATCH_FILE_PATH: /vmfs/volumes/data0/patch/VMware-ESXi-8.0U2c-23825572-depot.zip
+PATCH_PROFILE: ESXi-8.0U2c-23825572-standard
