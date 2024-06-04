@@ -9,8 +9,8 @@ You can `cd` into any of the included directories and run ansible-playbook on it
 ## Prereq
 
   - **VMWARE ESXi 8** (`vmware esxi8` - as ansible target for patching, in this example with ip 10.11.8.87)
-  - **linux server** ('linux server' - as ansible host for running playbook)
-  - **patch files** ('patch files' -  already uploaded to vmware esxi server)
+  - **linux server** (`linux server` - as ansible host for running playbook)
+  - **patch files** (`patch files` -  already uploaded to vmware esxi server)
 
 ## Commands
 
