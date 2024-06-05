@@ -17,18 +17,37 @@
       delegate_to: localhost
       tags: always
 
-# Make sure all VMs already migrated before entering maintenance mode and patching
+    - name: Check ESXi Version
+      shell: vmware -v
+      register: version_before
+
+# Make sure all VMs already backuped, stopped, and migrated before entering maintenance mode and patching
 
     - name: Enter Maintenance Mode
       shell: esxcli system maintenanceMode set --enable true
       ignore_errors: yes
 
-    - name: Patch it
+    - name: Patch esxi to {{ PATCH_PROFILE }}
       shell: esxcli software profile update -d {{ PATCH_FILE_PATH }} -p {{ PATCH_PROFILE }} --no-hardware-warning
 
-    - name: Reboot
+    - name: Reboot ... (Please wait while reboot on progress)
       shell: esxcli system shutdown reboot --reason "patching"
       ignore_errors: yes
+
+    - name: Wait for server to restart
+      local_action:
+        module: wait_for
+          host={{ inventory_hostname }}
+          port=22
+          delay=180
+
+    - name: Exit Maintenance Mode
+      shell: esxcli system maintenanceMode set --enable false
+      ignore_errors: yes
+
+    - name: Check ESXi Version
+      shell: vmware -v
+      register: version_after
 
     - name: Get end time
       block:
@@ -43,3 +62,9 @@
       delegate_to: localhost
       tags: always
 
+    - name: Show ESXi Version before patching
+      debug:
+        msg: "{{ version_before.stdout }}"
+    - name: Show ESXi Version after patching
+      debug:
+        msg: "{{ version_after.stdout }}"
