@@ -39,7 +39,7 @@
         module: wait_for
           host={{ inventory_hostname }}
           port=22
-          delay=180
+          delay=600
 
     - name: Exit Maintenance Mode
       shell: esxcli system maintenanceMode set --enable false
